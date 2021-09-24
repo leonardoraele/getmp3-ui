@@ -1,0 +1,63 @@
+@use "~getmp3-ui/style/constants"
+@use "~getmp3-ui/style/mixins"
+
+body
+	@include mixins.fill-content
+	margin: 0px
+	padding: 0px
+	width: 100vw
+	height: 100vh
+	// background-color: constants.$background-clr
+	min-width: constants.$body-min-width
+	min-height: constants.$body-min-height
+	overflow-x: hidden
+	overflow-y: hidden
+
+// button
+// 	font-size: 1em
+// 	background-color: constants.$neutral-clr
+// 	border: 1px solid constants.$text-weak-clr
+// 	border-radius: 0.5rem
+// 	cursor: pointer
+
+// button.primary
+// 	background-color: constants.$primary-clr
+// 	border-color: constants.$text-strong-clr
+
+// button:disabled
+// 	background-color: constants.$faded-clr
+// 	border-color: constants.$text-weak-clr
+// 	cursor: not-allowed
+
+h1
+	font-size: 3em
+h2
+	font-size: 2.4em
+h3
+	font-size: 2em
+h4
+	font-size: 1.7em
+h5
+	font-size: 1.45em
+h6
+	font-size: 1.3em
+
+label
+	font-weight: bold
+	margin-bottom: 0.5rem
+
+label > select
+	display: block
+	border: 1px solid constants.$text-weak-clr
+	border-radius: 0.5rem
+	height: 2.5em
+	padding-left: 1em
+	padding-right: 1em
+	min-width: 10rem
+
+a.unstyled-link
+	color: inherit
+	text-decoration: inherit
+
+.font-code
+	font-family: constants.$font-code

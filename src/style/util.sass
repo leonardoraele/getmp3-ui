@@ -1,0 +1,130 @@
+@use "~getmp3-ui/style/constants"
+@use "~getmp3-ui/style/mixins"
+
+// CSS flexbox tutorial: https://flexboxfroggy.com/
+
+// FLEXBOX CONTAINER
+// ► flex-row, flex-row-reverse, inline-flex-row, inline-flex-row-reverse
+// ► flex-column, flex-column-reverse, inline-flex-column, inline-flex-column-reverse
+@each $value in (row, row-reverse, column, column-reverse)
+	.flex-#{$value}
+		display: flex
+		flex-direction: $value
+	.inline-flex-#{$value}
+		fisplay: inline-flex
+		flex-direction: $value
+
+// FLEX WRAP
+// ► flex-wrap, flex-wrap-reverse
+.flex-wrap
+	flex-wrap: wrap
+.flex-wrap-reverse
+	flex-wrap: reverse
+
+// JUSTIFY-CONTENT (controls how empty space is distributed in the main axis; ignored if the items use flex-grow)
+// ► justify-center, justify-start, justify-end, justify-stretch
+// ► justify-between, justify-evenly
+@each $name, $value in ('center' center, 'start' flex-start, 'end' flex-end, 'stretch' stretch, 'between' space-between, 'evenly' space-evenly)
+	.justify-#{$name}
+		justify-content: $value
+
+// ALIGN-CONTENT (cotrols how empty space between lines is distributed in the cross axis when the flex flow wraps into
+//   multiple lines; ignored if the container only has a single line or if it doesn't wraps into multiple lines)
+// ► align-content-center, align-content-start, align-content-end, align-content-stretch
+// ► align-content-between, align-content-evenly
+@each $name, $value in ('center' center, 'start' flex-start, 'end' flex-end, stretch, 'between' space-between, 'evenly' space-evenly)
+	.align-content-#{$name}
+		align-content: $value
+
+// ALIGN-ITEMS (aligns items within the line in the cross axis)
+// ► align-items-stretch, align-items-center, align-items-start, align-items-end
+@each $name, $value in ('center' center, 'start' flex-start, 'end' flex-end, stretch)
+	.align-items-#{$name}
+		align-items: $value
+
+// FLEX-GROW
+// ► flex-1, flex-2, flex-3, flex-5, flex-8, flex-13, flex-21
+@each $value in (1, 2, 3, 5, 8, 13, 21)
+	.flex-#{$value}
+		flex: $value
+
+// SIZE
+// ► width-1, width-2, width-3, width-4, ..., width-200
+// ► width-half, width-quarter
+// ► height-1, height-2, height-3, height-4, ..., height-200
+// ► height-half, height-quarter
+@each $value in (1, 2, 3, 4, 6, 8, 12, 20, 30, 40, 60, 80, 120, 200)
+	.width-#{$value}
+		width: #{$value}rem
+		min-width: #{$value}rem
+		max-width: #{$value}rem
+	.height-#{$value}
+		height: #{$value}rem
+		min-height: #{$value}rem
+		max-height: #{$value}rem
+@each $name, $value in ('half' 0.5rem, 'quarter' 0.25rem)
+	.width-#{$name}
+		width: $value
+		min-width: $value
+		max-width: $value
+	.height-#{$name}
+		height: $value
+		min-height: $value
+		max-height: $value
+
+// MARGIN & PADDING
+// ► margin-0, margin-half, margin-quarter, margin-1, margin-2, margin-3, ..., margin-200
+// ► margin-top-0, margin-top-half, margin-top-quarter, margin-top-1, margin-top-2, margin-top-3, ..., margin-top-200
+// ► margin-right-0, margin-right-half, margin-right-quarter, margin-right-1, margin-right-2, margin-right-3, ..., margin-right-200
+// ► margin-bottom-0, margin-bottom-half, margin-bottom-quarter, margin-bottom-1, margin-bottom-2, margin-bottom-3, ..., margin-bottom-200
+// ► margin-left-0, margin-left-half, margin-left-quarter, margin-left-1, margin-left-2, margin-left-3, ..., margin-left-200
+// ► padding-0, padding-half, padding-quarter, padding-1, padding-2, padding-3, ..., padding-200
+// ► padding-top-0, padding-top-half, padding-top-quarter, padding-top-1, padding-top-2, padding-top-3, ..., padding-top-200
+// ► padding-right-0, padding-right-half, padding-right-quarter, padding-right-1, padding-right-2, padding-right-3, ..., padding-right-200
+// ► padding-bottom-0, padding-bottom-half, padding-bottom-quarter, padding-bottom-1, padding-bottom-2, padding-bottom-3, ..., padding-bottom-200
+// ► padding-left-0, padding-left-half, padding-left-quarter, padding-left-1, padding-left-2, padding-left-3, ..., padding-left-200
+@each $value in (0, 1, 2, 3, 4, 6, 8, 12, 20, 30, 40, 60, 80, 120, 200)
+	.margin-#{$value}
+		margin: #{$value}rem
+	.padding-#{$value}
+		padding: #{$value}rem
+	@each $side in (top, right, bottom, left)
+		.margin-#{$side}-#{$value}
+			margin-#{$side}: #{$value}rem
+		.padding-#{$side}-#{$value}
+			padding-#{$side}: #{$value}rem
+@each $name, $value in ('half' 0.5, 'quarter' 0.25)
+	.margin-#{$name}
+		margin: #{$value}rem
+	.padding-#{$name}
+		padding: #{$value}rem
+	@each $side in (top, right, bottom, left)
+		.margin-#{$side}-#{$name}
+			margin-#{$side}: #{$value}rem
+		.padding-#{$side}-#{$name}
+			padding-#{$side}: #{$value}rem
+
+// CONTENT SPACE
+// ► fill-width, fill-height, fill-content
+.fill-width
+	@include mixins.fill-width
+.fill-height
+	@include mixins.fill-height
+.fill-content
+	@include mixins.fill-content
+.centralize-children
+	display: grid
+	place-items: center
+
+// OTHER
+// ► scrollable, overflow-hidden
+.scrollable
+	overflow: scroll
+.overflow-hidden
+	overflow: hidden
+
+// COLORS
+.background-clr
+	background-color: constants.$background-clr
+.foreground-clr
+	background-color: constants.$foreground-clr

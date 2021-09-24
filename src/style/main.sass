@@ -1,0 +1,21 @@
+// =============================================================================
+//                            !!! IMPORTANT !!!
+// -----------------------------------------------------------------------------
+//
+// DO NOT IMPORT THIS FILE DIRECTLY ON OTHER SASS FILES BECASUE THIS WOULD CAUSE
+// ALL BULMA CSS AND GLOBAL CSS TO BE INJECTED IN THE PAGE EACH TIME IT IS
+// IMPORTED!!
+//
+// Instead, import this file only ONCE, ***BEFORE*** any component-specific sass
+// files. This way, Bulma and global.sass will be injected in the page only
+// once.
+//
+// On the components, you should instead import "~app/constants", which contains
+// the shared variables and mixins but doesn't output any css.
+//
+// =============================================================================
+
+@use "~getmp3-ui/style/constants"
+@use "~getmp3-ui/style/mixins"
+@use "~getmp3-ui/style/global"
+@use "~getmp3-ui/style/util"

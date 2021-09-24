@@ -16,7 +16,7 @@ require('dotenv/config');
 	|| Throw('Unsupported environment:', process.env.NODE_ENV ?? 'NODE_ENV undefined');
 
 const mode = process.env.NODE_ENV ?? 'production';
-const appName = _(Package.name).words().map(_.capitalize).join(' ');
+const appName = "Get MP3";
 
 module.exports = () => (
 {

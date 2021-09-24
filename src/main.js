@@ -1,5 +1,6 @@
 import AppDefinition from 'getmp3-ui/app';
 import { createApp } from 'vue';
+import 'getmp3-ui/style/main.sass';
 
 const app = createApp(AppDefinition);
 const appContainer = (() => {
