@@ -2,7 +2,7 @@
 	<div class="flex-column justify-center align-items-center fill-content">
 		<h1>{{appName.toUpperCase()}}</h1>
 		<div class="height-1" />
-		<MdTextField v-model:value="input" label="YouTube URL" class="width-40" />
+		<MdTextField v-model:value="input" label="YouTube video URL" class="width-40" />
 		<div class="height-1" />
 		<MdTextField v-if="downloadUrl" :value="downloadUrl" label="Your download link" class="width-40" filled />
 		<div v-else-if="errorMessage">{{errorMessage}}</div>
