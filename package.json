@@ -8,7 +8,9 @@
     "build:development": "webpack --mode=development",
     "build:production": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch",
-    "serve": "webpack serve"
+    "serve": "per-env",
+    "serve:development": "webpack serve --mode=development",
+    "serve:production": "webpack serve --mode=production"
   },
   "author": "Leonardo Raele <leonardoraele@gmail.com>",
   "license": "UNLICENSED",
