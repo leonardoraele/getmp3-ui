@@ -37,6 +37,7 @@
 			</span>
 			<span v-if="prefix" class="mdc-text-field__affix mdc-text-field__affix--prefix">{{prefix}}</span>
 			<input
+				ref="input"
 				v-if="!textarea"
 				:value="value"
 				@input="e => this.$emit('update:value', e.target.value)"
@@ -46,10 +47,12 @@
 				:maxlength="maxlength ?? false"
 				:required="required"
 				:invalid="validate && !validate(value)"
+				:readonly="readonly"
 			/>
 			<span v-if="suffix" class="mdc-text-field__affix mdc-text-field__affix--suffix">{{suffix}}</span>
 			<span v-if="textarea" :class="{ 'mdc-text-field__resizer': resizeable }">
 				<textarea
+					ref="textarea"
 					:value="value"
 					@input="e => this.$emit('update:value', e.target.value)"
 					class="mdc-text-field__input"
@@ -58,6 +61,7 @@
 					:maxlength="maxlength ?? false"
 					:required="required"
 					:invalid="validate && !validate(value)"
+					:readonly="readonly"
 				/>
 				<span
 					v-if="maxlength && counterInside"
@@ -103,15 +107,21 @@ export default
 		validate: { type: Function, required: false },
 		inline: { type: Boolean, default: false },
 		endaligned: { type: Boolean, default: false },
+		readonly: { type: Boolean, default: false },
 	},
 	computed:
 	{
-		console: () => console,
+		element()
+		{
+			return this.textarea
+				? this.$refs.textarea
+				: this.$refs.input;
+		},
 	},
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @use "@material/floating-label/mdc-floating-label";
 @use "@material/line-ripple/mdc-line-ripple";
 @use "@material/notched-outline/mdc-notched-outline";

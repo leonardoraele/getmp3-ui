@@ -4,14 +4,25 @@
 		<div class="height-1" />
 		<MdTextField v-model:value="input" label="YouTube video URL" class="width-40" />
 		<div class="height-1" />
-		<MdTextField v-if="downloadUrl" :value="downloadUrl" label="Your download link" class="width-40" filled />
+		<div v-if="downloadUrl" class="flex-row width-40">
+			<MdTextField
+				ref="downloadField"
+				@click="() => this.$refs.downloadField.element.select()"
+				class="fill-width"
+				:value="downloadUrl"
+				label="Your download link"
+				filled readonly
+			/>
+			<MdIconButton @click="open">open_in_new</MdIconButton>
+			<MdIconButton @click="copy">content_copy</MdIconButton>
+		</div>
 		<div v-else-if="errorMessage">{{errorMessage}}</div>
 	</div>
 </template>
 
 <script>
-import MdButton from 'getmp3-ui/components/md/button';
 import MdTextField from 'getmp3-ui/components/md/textfield';
+import MdIconButton from 'getmp3-ui/components/md/icon-button';
 import trimEnd from 'lodash/trimEnd';
 
 export default {
@@ -22,10 +33,7 @@ export default {
 	}),
 	computed:
 	{
-		appName()
-		{
-			return BUILD_ARGS.APP_NAME;
-		},
+		appName: () => BUILD_ARGS.APP_NAME,
 		youtubeUrl()
 		{
 			try
@@ -66,6 +74,17 @@ export default {
 			}
 		},
 	},
-	components: { MdButton, MdTextField },
+	methods:
+	{
+		async copy()
+		{
+			await navigator.clipboard.writeText(this.downloadUrl);
+		},
+		open()
+		{
+			window.open(this.downloadUrl);
+		},
+	},
+	components: { MdTextField, MdIconButton },
 };
 </script>
