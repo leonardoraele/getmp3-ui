@@ -29,6 +29,7 @@
     "eslint-plugin-vue": "^7.18.0",
     "git-rev-sync": "^3.0.1",
     "html-webpack-plugin": "^5.3.2",
+    "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^2.3.0",
     "per-env": "^1.0.2",
     "sass": "^1.35.2",

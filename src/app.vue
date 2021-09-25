@@ -12,6 +12,7 @@
 <script>
 import MdButton from 'getmp3-ui/components/md/button';
 import MdTextField from 'getmp3-ui/components/md/textfield';
+import trimEnd from 'lodash/trimEnd';
 
 export default {
 	data: () => (
@@ -51,7 +52,8 @@ export default {
 		},
 		downloadUrl()
 		{
-			return this.videoId && `https://getmp3.leonardoraele.com/youtube/${this.videoId}`;
+			const apiBaseUrl = trimEnd(BUILD_ARGS.API_URL, '/');
+			return this.videoId && `${apiBaseUrl}/youtube/${this.videoId}`;
 		},
 	},
 	watch:
