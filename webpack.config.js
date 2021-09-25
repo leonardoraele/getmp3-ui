@@ -42,7 +42,7 @@ module.exports = () => (
 				'BUILD_ARGS.VERSION': JSON.stringify(Package.version),
 				'BUILD_ARGS.VERSION_BRANCH': JSON.stringify(rev.branch()),
 				'BUILD_ARGS.VERSION_HASH': JSON.stringify(rev.short()),
-				'BUILD_ARGS.API_URL': `(window.location.origin + "${process.env.API_PATH ?? '/api'}")`,
+				'BUILD_ARGS.API_URL': `(window.location.origin + "${process.env.API_PATH ?? '/'}")`,
 				'process.env': `({ NODE_ENV: "${mode}" })`,
 			},
 		),
@@ -91,10 +91,10 @@ module.exports = () => (
 		port: process.env.PORT ?? '8080',
 		proxy:
 		{
-			[process.env.API_PATH ?? '/api']:
+			[process.env.API_PATH ?? '/']:
 			{
 				target: process.env.API_URL ?? 'http://localhost:3100',
-				pathRewrite: { [`^${process.env.API_PATH ?? '/api'}`]: '' },
+				pathRewrite: { [`^${process.env.API_PATH ?? '/'}`]: '/' },
 				// ws: true,
 			},
 		},
