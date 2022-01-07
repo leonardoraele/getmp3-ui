@@ -1,22 +1,28 @@
 <template>
 	<div class="flex-column justify-center align-items-center fill-content">
-		<h1>{{appName.toUpperCase()}}</h1>
+		<h1 class="app-title">{{APP_NAME.toUpperCase()}}</h1>
 		<div class="height-1" />
-		<MdTextField v-model:value="input" label="YouTube video URL" class="width-40" />
+		<MdTextField
+			v-model:value="userInput"
+			label="YouTube video URL or SoundCloud music URL"
+			class="width-40"
+			ref="userInputField"
+			@click="() => this.$refs.userInputField.element.select()"
+		/>
 		<div class="height-1" />
-		<div v-if="downloadUrl" class="flex-row width-40">
+		<div v-if="this.errorMessage">{{this.errorMessage}}</div>
+		<div v-else-if="this.downloadUrl" class="flex-row width-40">
 			<MdTextField
 				ref="downloadField"
 				@click="() => this.$refs.downloadField.element.select()"
 				class="fill-width"
-				:value="downloadUrl"
+				:value="this.downloadUrl"
 				label="Your download link"
 				filled readonly
 			/>
-			<MdIconButton @click="open">open_in_new</MdIconButton>
-			<MdIconButton @click="copy">content_copy</MdIconButton>
+			<MdIconButton @click="this.copy">content_copy</MdIconButton>
+			<MdIconButton @click="this.open">open_in_new</MdIconButton>
 		</div>
-		<div v-else-if="errorMessage">{{errorMessage}}</div>
 	</div>
 </template>
 
@@ -28,40 +34,38 @@ import trimEnd from 'lodash/trimEnd';
 export default {
 	data: () => (
 	{
-		input: '',
+		userInput: '',
 		error: null,
 	}),
 	computed:
 	{
-		appName: () => BUILD_ARGS.APP_NAME,
-		youtubeUrl()
+		APP_NAME: () => BUILD_ARGS.APP_NAME,
+		errorMessage()
 		{
-			try
-			{
-				return new URL(this.input);
-			}
-			catch(error)
+			if (!this.userInput?.length)
 			{
 				return null;
 			}
-		},
-		errorMessage()
-		{
-			return /^\s*$/.test(this.input) ? null
-				: !this.youtubeUrl ? 'Invalid URL'
-				: !/\byoutube\.com$/.test(this.youtubeUrl.host) ? 'Not a YouTube URL'
-				: this.youtubeUrl.pathname !== '/watch' ? 'Not a YouTube video URL'
-				: !this.videoId ? 'Incomplete URL'
-				: null;
-		},
-		videoId()
-		{
-			return this.youtubeUrl?.searchParams.get('v');
+			try
+			{
+				new URL(this.userInput);
+				return null;
+			}
+			catch(error)
+			{
+				return error.message;
+			}
 		},
 		downloadUrl()
 		{
+			if (!this.userInput.length)
+			{
+				return null;
+			}
+
 			const apiBaseUrl = trimEnd(BUILD_ARGS.API_URL, '/');
-			return this.videoId && `${apiBaseUrl}/youtube/${this.videoId}`;
+			const userInputUrl = encodeURI(this.userInput);
+			return `${apiBaseUrl}/download?url=${userInputUrl}`;
 		},
 	},
 	watch:
@@ -78,7 +82,7 @@ export default {
 	{
 		async copy()
 		{
-			await navigator.clipboard.writeText(this.downloadUrl);
+			await window.navigator.clipboard.writeText(this.downloadUrl);
 		},
 		open()
 		{
@@ -88,3 +92,10 @@ export default {
 	components: { MdTextField, MdIconButton },
 };
 </script>
+
+<style>
+.app-title {
+	font-family: sans-serif;
+	font-weight: bold;
+}
+</style>
