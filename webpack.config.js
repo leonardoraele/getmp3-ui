@@ -39,9 +39,9 @@ module.exports = () => (
 			{
 				'BUILD_ARGS.APP_NAME': JSON.stringify(appName),
 				'BUILD_ARGS.ENVIRONMENT': JSON.stringify(mode),
-				'BUILD_ARGS.VERSION': JSON.stringify(Package.version),
-				'BUILD_ARGS.VERSION_BRANCH': JSON.stringify(rev.branch()),
-				'BUILD_ARGS.VERSION_HASH': JSON.stringify(rev.short()),
+				'BUILD_ARGS.APP_VERSION': JSON.stringify(rev.tag()),
+				'BUILD_ARGS.GIT_BRANCH': JSON.stringify(rev.branch()),
+				'BUILD_ARGS.GIT_HASH': JSON.stringify(rev.short()),
 				'BUILD_ARGS.API_URL': `(window.location.origin + "${process.env.API_PATH ?? '/'}")`,
 				'process.env': `({ NODE_ENV: "${mode}" })`,
 			},
